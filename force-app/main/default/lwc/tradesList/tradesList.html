@@ -1,0 +1,49 @@
+<template>
+    <template if:true = {allTrades}>
+        <lightning-card  title="Trades">
+            <lightning-button onclick = {handleNewTradeButton} label="New Trade" slot="actions"></lightning-button>
+        </lightning-card>
+        <table class = 'slds-table'>
+            <thead class = 'slds-table'>
+                <tr>
+                    <th>Sell CCY</th>
+                    <th>Sell Amount</th>
+                    <th>Buy CCY</th>
+                    <th>Buy Amount</th>
+                    <th>Rate</th>
+                    <th>Date Booked</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each = {allTrades} for:item = 'trade'>
+                    <tr key = {trade.TradeId}>
+                        <td>
+                            {trade.SellCurrency}
+                        </td>
+                        <td>
+                            {trade.SellAmount}
+                        </td>
+                        <td>
+                            {trade.BuyCurrency}
+                        </td>
+                        <td>
+                            {trade.BuyAmount}
+                        </td>
+                        <td>
+                            {trade.Rate}
+                        </td>     
+                        <td>
+                            {trade.CreatedDate}
+                        </td>       
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+    </template>
+    <template if:false = {allTrades}>
+        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+    </template>
+    <template if:true = {showCreationModal}>
+        <c-new-trade-modal-box onclose = {handleCloseNewTradeModal}></c-new-trade-modal-box>
+    </template>
+</template>
